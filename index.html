@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#ffffff">
 <meta name="description" content="Antarik Sweets — a Bengali sweet shop in Falakata, Alipurduar.">
+<meta name="google-site-verification" content="lT_XmDY5r5zbgTeif09I2KlPZn_6FjSQUlpMbL6Bn5A">
+
 <title>Antarik Sweets — Falakata, Alipurduar</title>
-<meta name="google-site-verification" content="lT_XmDY5r5zbgTeif09I2KlPZn_6FjSQUlpMbL6Bn5A" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
@@ -43,9 +45,14 @@ a {
   color: inherit;
 }
 
-a:focus-visible {
-  outline: 3px solid currentColor;
-  outline-offset: 6px;
+button {
+  font: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 5px;
 }
 
 ::selection {
@@ -70,6 +77,18 @@ a:focus-visible {
 
 .skip:focus {
   top: 10px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* HEADER */
@@ -114,6 +133,16 @@ header {
   font-size: 9px;
   font-weight: 500;
   letter-spacing: 2px;
+}
+
+.logo-text .bengali-logo-name {
+  display: block;
+  color: var(--red);
+  font-family: "Noto Serif Bengali", serif;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: normal;
 }
 
 nav {
@@ -172,38 +201,18 @@ h1 {
   color: var(--red);
 }
 
-.seal {
+.hero-sweet-image {
+  display: block;
   flex-shrink: 0;
-  width: clamp(100px, 17vw, 210px);
+  width: clamp(110px, 21vw, 290px);
+  height: auto;
   aspect-ratio: 1;
-  padding: 8px;
-  border: 2px solid var(--red);
+  object-fit: cover;
   border-radius: 50%;
-  background: #fff8f8;
-  color: var(--red);
-  transform: rotate(12deg);
-}
-
-.seal-inner {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px dashed #c9252c60;
-  border-radius: 50%;
-  text-align: center;
-}
-
-.seal small {
-  font: 700 clamp(8px, 1vw, 13px) "DM Sans", sans-serif;
-  letter-spacing: 1px;
-}
-
-.seal b {
-  margin: 8px 0;
-  font: 700 clamp(27px, 4vw, 54px) "Noto Serif Bengali", serif;
-  letter-spacing: 0;
+  border: 6px solid var(--white);
+  box-shadow:
+    0 0 0 1px var(--border),
+    0 12px 30px #65212c15;
 }
 
 .hero-bottom {
@@ -325,12 +334,14 @@ h2 em {
   font-style: normal;
 }
 
-/* PHOTO GALLERY */
+/* CENTER-FOCUSED SWEET CAROUSEL */
 
 .gallery-section {
-  padding: 70px 0 75px;
+  padding: 70px 0 65px;
   border-bottom: 1px solid var(--border);
-  background: var(--white);
+  background:
+    radial-gradient(ellipse at center, #fff0f2, transparent 65%),
+    var(--white);
 }
 
 .gallery-heading {
@@ -338,7 +349,7 @@ h2 em {
   justify-content: space-between;
   align-items: end;
   gap: 24px;
-  margin-bottom: 42px;
+  margin-bottom: 10px;
 }
 
 .gallery-heading h2 {
@@ -354,37 +365,72 @@ h2 em {
   line-height: 1.8;
 }
 
+.sweet-carousel {
+  --card-width: 42%;
+  --card-gap: 26px;
+  position: relative;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  padding: 50px 0 55px;
+  touch-action: pan-y pinch-zoom;
+  cursor: grab;
+}
+
+.carousel-viewport:active {
+  cursor: grabbing;
+}
+
+.carousel-viewport:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 5px;
+}
+
 .sweet-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
+  display: flex;
+  align-items: stretch;
+  gap: var(--card-gap);
+  transition: transform 900ms cubic-bezier(.22, 1, .36, 1);
+  will-change: transform;
 }
 
 .sweet-photo {
+  flex: 0 0 var(--card-width);
   min-width: 0;
   margin: 0;
-  padding: 12px 12px 0;
+  padding: 10px 10px 0;
   border: 1px solid var(--border);
+  border-radius: 12px;
   background: var(--white);
-  box-shadow: 0 10px 28px #65212c0c;
+
+  transform: scale(.82);
+  opacity: .45;
+  filter: saturate(.65);
+
+  box-shadow: 0 8px 20px #65212c08;
+
+  transition:
+    transform 900ms cubic-bezier(.22, 1, .36, 1),
+    opacity 900ms ease,
+    filter 900ms ease,
+    box-shadow 900ms ease;
 }
 
-.sweet-photo:nth-child(1) {
-  transform: rotate(-2deg);
-}
-
-.sweet-photo:nth-child(2) {
-  transform: rotate(1deg);
-}
-
-.sweet-photo:nth-child(3) {
-  transform: rotate(-1deg);
+.sweet-photo.is-active {
+  transform: scale(1);
+  opacity: 1;
+  filter: saturate(1);
+  box-shadow:
+    0 22px 45px #65212c20,
+    0 0 0 1px #c9252c12;
 }
 
 .photo-slot {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1;
   overflow: hidden;
+  border-radius: 7px;
   background: #f7eff0;
 }
 
@@ -393,11 +439,8 @@ h2 em {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform .5s ease;
-}
-
-.sweet-photo:hover img {
-  transform: scale(1.04);
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .photo-fallback {
@@ -431,6 +474,7 @@ h2 em {
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .sweet-photo figcaption {
@@ -438,13 +482,13 @@ h2 em {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  padding: 18px 3px;
+  padding: 20px 5px;
 }
 
 .photo-name {
   color: var(--ink);
   font-family: "Oswald", Impact, sans-serif;
-  font-size: 27px;
+  font-size: clamp(20px, 2.5vw, 34px);
   text-transform: uppercase;
 }
 
@@ -453,11 +497,87 @@ h2 em {
   font: 12px monospace;
 }
 
-.gallery-note {
-  margin: 32px 0 0;
+.sweet-gallery.is-resetting,
+.sweet-gallery.is-resetting .sweet-photo {
+  transition: none !important;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+}
+
+.carousel-dot {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.carousel-dot::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #e5c6cc;
+  transition: width .3s ease, background .3s ease;
+}
+
+.carousel-dot[aria-current="true"]::before {
+  width: 27px;
+  background: var(--red);
+}
+
+.carousel-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.carousel-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+
+.carousel-button.arrow-button {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.carousel-button:hover {
+  border-color: var(--red);
+  background: var(--red);
+  color: var(--white);
+}
+
+.gallery-hint {
+  margin: 18px 0 0;
   color: var(--muted);
   font-size: 11px;
-  line-height: 1.7;
   text-align: center;
 }
 
@@ -736,24 +856,6 @@ footer {
   font: 20px "Noto Serif Bengali", serif;
 }
 
-.credits {
-  margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px solid #ffffff30;
-  color: #f3dce0;
-  font-size: 10px;
-  line-height: 1.9;
-}
-
-.credits summary {
-  cursor: pointer;
-}
-
-.credits a {
-  color: var(--white);
-  text-underline-offset: 3px;
-}
-
 /* TABLET */
 
 @media (max-width: 800px) {
@@ -786,16 +888,9 @@ footer {
     max-width: 500px;
   }
 
-  .sweet-gallery {
-    gap: 16px;
-  }
-
-  .sweet-photo {
-    padding: 8px 8px 0;
-  }
-
-  .photo-name {
-    font-size: 21px;
+  .sweet-carousel {
+    --card-width: 56%;
+    --card-gap: 12px;
   }
 
   .menu-section {
@@ -852,23 +947,38 @@ footer {
     max-width: 350px;
   }
 
-  .sweet-gallery {
-    grid-template-columns: 1fr;
-    gap: 35px;
-    max-width: 380px;
-    margin: auto;
-  }
-
-  .photo-slot {
-    aspect-ratio: 1;
-  }
-
   .gallery-section {
-    padding: 45px 0 55px;
+    padding: 45px 0 50px;
+  }
+
+  .sweet-carousel {
+    --card-width: 72%;
+    --card-gap: 4px;
+  }
+
+  .carousel-viewport {
+    padding: 30px 0 40px;
+  }
+
+  .sweet-photo {
+    padding: 8px 8px 0;
+    transform: scale(.8);
+  }
+
+  .sweet-photo.is-active {
+    transform: scale(1);
   }
 
   .photo-name {
-    font-size: 27px;
+    font-size: 24px;
+  }
+
+  .photo-number {
+    font-size: 10px;
+  }
+
+  .carousel-controls {
+    gap: 10px;
   }
 }
 
@@ -896,6 +1006,10 @@ footer {
     font-size: 8px;
   }
 
+  .logo-text .bengali-logo-name {
+    font-size: 28px;
+  }
+
   nav {
     width: 100%;
     justify-content: space-between;
@@ -909,22 +1023,13 @@ footer {
     font-size: 8px;
   }
 
-  .seal {
-    width: 82px;
-    padding: 5px;
-  }
-
-  .seal small {
-    font-size: 6px;
-  }
-
-  .seal b {
-    font-size: 24px;
-    margin: 3px 0;
-  }
-
   .hero-copy {
     font-size: 15px;
+  }
+
+  .hero-sweet-image {
+    width: 26vw;
+    border-width: 4px;
   }
 
   .strip {
@@ -971,44 +1076,12 @@ footer {
   }
 
   .cta,
-  .photo-slot img,
-  .social-button {
+  .social-button,
+  .sweet-gallery,
+  .sweet-photo,
+  .carousel-button,
+  .carousel-dot::before {
     transition: none;
-  }
-}
-.logo-text .bengali-logo-name {
-  display: block;
-  font-family: "Noto Serif Bengali", serif;
-  font-size: 34px;
-  font-weight: 700;
-  line-height: 1.35;
-  letter-spacing: normal;
-  color: var(--red);
-}
-
-@media (max-width: 460px) {
-  .logo-text .bengali-logo-name {
-    font-size: 28px;
-  }
-}
-.hero-sweet-image {
-  display: block;
-  flex-shrink: 0;
-  width: clamp(110px, 21vw, 290px);
-  height: auto;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 6px solid var(--white);
-  box-shadow:
-    0 0 0 1px var(--border),
-    0 12px 30px #65212c15;
-}
-
-@media (max-width: 460px) {
-  .hero-sweet-image {
-    width: 26vw;
-    border-width: 4px;
   }
 }
 </style>
@@ -1022,8 +1095,6 @@ footer {
 <div class="shell">
   <header>
     <a class="logo" href="#" aria-label="Antarik Sweets home">
-
-      <!-- Save your logo as logo.jpg beside index.html. -->
       <img
         class="shop-logo"
         src="logo.jpg"
@@ -1033,9 +1104,9 @@ footer {
       >
 
       <span class="logo-text">
-  <span class="bengali-logo-name" lang="bn">আন্তরিক</span>
-  <small>FALAKATA, ALIPURDUAR</small>
-</span>
+        <span class="bengali-logo-name" lang="bn">আন্তরিক</span>
+        <small>FALAKATA, ALIPURDUAR</small>
+      </span>
     </a>
 
     <nav aria-label="Main navigation">
@@ -1061,14 +1132,14 @@ footer {
         <span>SWEETS.</span>
 
         <img
-  class="hero-sweet-image"
-  src="hero.jpg"
-  alt="Rosogolla in syrup — sample sweet photograph"
-  width="2828"
-  height="2294"
-  fetchpriority="high"
->
-</span>
+          class="hero-sweet-image"
+          src="hero.jpg"
+          alt="Rosogolla in syrup — sample sweet photograph"
+          width="2828"
+          height="2294"
+          fetchpriority="high"
+        >
+      </span>
     </h1>
 
     <div class="hero-bottom">
@@ -1095,14 +1166,16 @@ footer {
   <div class="strip">
     <span>SMALL BITES</span>
     <span aria-hidden="true">✳</span>
+
     <span class="bengali" lang="bn">
       মিষ্টি মুখে, মিষ্টি মনে।
     </span>
+
     <span aria-hidden="true">✳</span>
     <span>BIG HAPPINESS</span>
   </div>
 
-  <!-- PHOTO GALLERY -->
+  <!-- CENTER-FOCUSED SWEET CAROUSEL -->
   <section
     class="gallery-section"
     id="gallery"
@@ -1112,6 +1185,7 @@ footer {
       <div class="gallery-heading">
         <div>
           <div class="kicker">A little eye candy</div>
+
           <h2 id="gallery-title">
             LOVE AT<br>
             <em>FIRST BITE.</em>
@@ -1124,94 +1198,283 @@ footer {
         </p>
       </div>
 
-      <div class="sweet-gallery">
+      <div
+        class="sweet-carousel"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Bengali sweets"
+      >
+        <div
+          class="carousel-viewport"
+          id="sweet-viewport"
+          tabindex="0"
+          aria-label="Sweet cards. Use left and right arrow keys to browse."
+        >
+          <div class="sweet-gallery" id="sweet-track">
 
-        <!-- PHOTO 1 -->
-        <figure class="sweet-photo">
-          <div class="photo-slot">
-            <!-- Replace src with your own rosogolla photo later. -->
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/3/39/Rasgulla.jpg"
-              alt="Sample photograph of rosogolla in syrup"
-              width="2828"
-              height="2294"
-              loading="lazy"
-              decoding="async"
-              onerror="this.parentElement.classList.add('failed')"
+            <!-- SWEET 1 -->
+            <figure
+              class="sweet-photo"
+              role="group"
+              aria-roledescription="slide"
+              aria-label="1 of 3: Rosogolla"
             >
+              <div class="photo-slot">
+                <img
+                  src="misti/img1.jpg"
+                  alt="photograph of rosogolla bengali style sweet in syrup"
+                  width="2828"
+                  height="2294"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                  onerror="this.parentElement.classList.add('failed')"
+                >
 
-            <div class="photo-fallback">
-              ROSOGOLLA<br>
-              Photo unavailable
-            </div>
+                <div class="photo-fallback">
+                  ROSOGOLLA<br>
+                  Photo unavailable
+                </div>
 
-            <span class="photo-label">Rosogolla</span>
+                <span class="photo-label">Rosogolla</span>
+              </div>
+
+              <figcaption>
+                <span class="photo-name">Rosogolla</span>
+                <span class="photo-number">01 / মিষ্টি</span>
+              </figcaption>
+            </figure>
+
+            <!-- SWEET 2 -->
+            <figure
+              class="sweet-photo"
+              role="group"
+              aria-roledescription="slide"
+              aria-label="2 of 3: Sandesh"
+            >
+              <div class="photo-slot">
+                <img
+                  src="misti/img2.jpg"
+                  alt="photograph of sandesh bengali style sweet"
+                  width="960"
+                  height="720"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                  onerror="this.parentElement.classList.add('failed')"
+                >
+
+                <div class="photo-fallback">
+                  SANDESH<br>
+                  Photo unavailable
+                </div>
+
+                <span class="photo-label">Sandesh</span>
+              </div>
+
+              <figcaption>
+                <span class="photo-name">Sandesh</span>
+                <span class="photo-number">02 / মিষ্টি</span>
+              </figcaption>
+            </figure>
+
+            <!-- SWEET 3 -->
+            <figure
+              class="sweet-photo"
+              role="group"
+              aria-roledescription="slide"
+              aria-label="3 of 3: Mishti Doi"
+            >
+              <div class="photo-slot">
+                <img
+                  src="misti/img3.jpg"
+                  alt="photograph of bengali style Rashmalai"
+                  width="904"
+                  height="733"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                  onerror="this.parentElement.classList.add('failed')"
+                >
+
+                <div class="photo-fallback">
+                  RASHMALAI<br>
+                  Photo unavailable
+                </div>
+
+                <span class="photo-label">Rashmalai</span>
+              </div>
+
+              <figcaption>
+                <span class="photo-name">Rashmalai</span>
+                <span class="photo-number">03 / মিষ্টি</span>
+              </figcaption>
+            </figure>
+            <figure
+              class="sweet-photo"
+              role="group"
+              aria-roledescription="slide"
+              aria-label="1 of 3: Rosogolla"
+            >
+              <div class="photo-slot">
+                <img
+                  src="misti/img4.jpg"
+                  alt=" photograph of Komolabhog in syrup"
+                  width="2828"
+                  height="2294"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                  onerror="this.parentElement.classList.add('failed')"
+                >
+
+                <div class="photo-fallback">
+                  KOMOLABHOG<br>
+                  Photo unavailable
+                </div>
+
+                <span class="photo-label">Komolabhog</span>
+              </div>
+
+              <figcaption>
+                <span class="photo-name">Komolabhog</span>
+                <span class="photo-number">04 / মিষ্টি</span>
+              </figcaption>
+            </figure>
+
+            <!-- SWEET 2 -->
+            <figure
+              class="sweet-photo"
+              role="group"
+              aria-roledescription="slide"
+              aria-label="2 of 3: Sandesh"
+            >
+              <div class="photo-slot">
+                <img
+                  src="misti/img5.jpg"
+                  alt="photograph of Gulab jamun"
+                  width="960"
+                  height="720"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                  onerror="this.parentElement.classList.add('failed')"
+                >
+
+                <div class="photo-fallback">
+                  GULAB JAMUN<br>
+                  Photo unavailable
+                </div>
+
+                <span class="photo-label">Gulab Jamun</span>
+              </div>
+
+              <figcaption>
+                <span class="photo-name">Gulab Jamun</span>
+                <span class="photo-number">05 / মিষ্টি</span>
+              </figcaption>
+            </figure>
+
+            <!-- SWEET 3 -->
+            <figure
+              class="sweet-photo"
+              role="group"
+              aria-roledescription="slide"
+              aria-label="3 of 3: Mishti Doi"
+            >
+              <div class="photo-slot">
+                <img
+                  src="misti/img6.jpg"
+                  alt="Dim misti "
+                  width="904"
+                  height="733"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                  onerror="this.parentElement.classList.add('failed')"
+                >
+
+                <div class="photo-fallback">
+                  Dim misti<br>
+                  Photo unavailable
+                </div>
+
+                <span class="photo-label">DIMMISTI</span>
+              </div>
+
+              <figcaption>
+                <span class="photo-name">Dim Misti</span>
+                <span class="photo-number">06 / মিষ্টি</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="carousel-controls">
+          <div class="carousel-dots" aria-label="Choose a sweet">
+            <button
+              class="carousel-dot"
+              type="button"
+              aria-label="Show Rosogolla"
+              aria-controls="sweet-viewport"
+              aria-current="true"
+            ></button>
+
+            <button
+              class="carousel-dot"
+              type="button"
+              aria-label="Show Sandesh"
+              aria-controls="sweet-viewport"
+              aria-current="false"
+            ></button>
+
+            <button
+              class="carousel-dot"
+              type="button"
+              aria-label="Show Mishti Doi"
+              aria-controls="sweet-viewport"
+              aria-current="false"
+            ></button>
           </div>
 
-          <figcaption>
-            <span class="photo-name">Rosogolla</span>
-            <span class="photo-number">01 / মিষ্টি</span>
-          </figcaption>
-        </figure>
+          <div class="carousel-actions">
+            <button
+              class="carousel-button arrow-button"
+              id="sweet-prev"
+              type="button"
+              aria-label="Previous sweet"
+              aria-controls="sweet-viewport"
+            >←</button>
 
-        <!-- PHOTO 2 -->
-        <figure class="sweet-photo">
-          <div class="photo-slot">
-            <!-- Replace src with your own sandesh photo later. -->
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Sandesh.JPG/960px-Sandesh.JPG"
-              alt="Sample photograph of sandesh sweets"
-              width="960"
-              height="720"
-              loading="lazy"
-              decoding="async"
-              onerror="this.parentElement.classList.add('failed')"
-            >
+            <button
+              class="carousel-button"
+              id="sweet-toggle"
+              type="button"
+              aria-label="Pause automatic sliding"
+            >Pause</button>
 
-            <div class="photo-fallback">
-              SANDESH<br>
-              Photo unavailable
-            </div>
-
-            <span class="photo-label">SANDESH</span>
+            <button
+              class="carousel-button arrow-button"
+              id="sweet-next"
+              type="button"
+              aria-label="Next sweet"
+              aria-controls="sweet-viewport"
+            >→</button>
           </div>
+        </div>
 
-          <figcaption>
-            <span class="photo-name">Sandesh</span>
-            <span class="photo-number">02 / মিষ্টি</span>
-          </figcaption>
-        </figure>
-
-        <!-- PHOTO 3 -->
-        <figure class="sweet-photo">
-          <div class="photo-slot">
-            <!-- Replace src with your own mishti doi photo later. -->
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/3/34/Mishti_Doi.jpg"
-              alt="Sample photograph of mishti doi in an earthen pot"
-              width="904"
-              height="733"
-              loading="lazy"
-              decoding="async"
-              onerror="this.parentElement.classList.add('failed')"
-            >
-
-            <div class="photo-fallback">
-              MISHTI DOI<br>
-              Photo unavailable
-            </div>
-
-            <span class="photo-label">Misti Doi</span>
-          </div>
-
-          <figcaption>
-            <span class="photo-name">Mishti Doi</span>
-            <span class="photo-number">03 / মিষ্টি</span>
-          </figcaption>
-        </figure>
-
+        <p
+          class="sr-only"
+          id="sweet-status"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        ></p>
       </div>
 
+      <p class="gallery-hint">
+        Swipe to explore · A little sweetness in every slide
+      </p>
     </div>
   </section>
 
@@ -1232,7 +1495,10 @@ footer {
         </h2>
 
         <p class="section-copy">
-          Best sweet shop in Falakata, Alipurduar. Contact us for your special orders and bulk purchases. We are happy to serve you with our delicious Bengali sweets and treats.
+          Best sweet shop in Falakata, Alipurduar.
+          Contact us for your special orders and bulk purchases.
+          We are happy to serve you with our delicious Bengali
+          sweets and treats.
         </p>
 
         <div class="bengali-note" lang="bn">
@@ -1247,9 +1513,9 @@ footer {
           <small>— SAMPLE SWEET SELECTION —</small>
         </div>
 
-        <!-- Replace these sample items with your actual menu. -->
         <article class="menu-item">
           <span class="item-number">01</span>
+
           <div>
             <h3>Rosogolla</h3>
             <p>
@@ -1261,6 +1527,7 @@ footer {
 
         <article class="menu-item">
           <span class="item-number">02</span>
+
           <div>
             <h3>Sandesh</h3>
             <p>
@@ -1272,6 +1539,7 @@ footer {
 
         <article class="menu-item">
           <span class="item-number">03</span>
+
           <div>
             <h3>Mishti Doi</h3>
             <p>
@@ -1311,13 +1579,19 @@ footer {
           HAPPINESS COMES<br>
           WITH SOMETHING SWEET.
         </h2>
+
         <p>
           Antarik Sweets is a Bengali sweet shop in Falakata,
           Alipurduar. Come by for a little sweetness and make
           an everyday moment feel like an occasion.
         </p>
+
         <p>
-          We offer a wide variety of sweet and savory options, all made from the finest ingredients. Come explore our delicious selection today and find your favorite sweet treat! We look forward to serving you for years to come!
+          We offer a wide variety of sweet and savory options,
+          all made from the finest ingredients. Come explore
+          our delicious selection today and find your favorite
+          sweet treat! We look forward to serving you for years
+          to come!
         </p>
       </div>
     </div>
@@ -1333,6 +1607,7 @@ footer {
       <div class="visit-top">
         <div>
           <div class="kicker">03 / Meet you at the shop</div>
+
           <h2 id="visit-title">
             FOLLOW YOUR<br>
             <em>SWEET TOOTH.</em>
@@ -1347,11 +1622,8 @@ footer {
           <strong>Antarik Sweets</strong><br>
           Falakata, Alipurduar<br>
           West Bengal, India
-
-          <!-- Add your full address and opening hours here. -->
         </address>
 
-        <!-- Replace this with your exact Google Maps shop link. -->
         <a
           class="cta"
           href="https://www.google.com/maps/search/?api=1&amp;query=Antarik%20Sweets%20Falakata%20Alipurduar"
@@ -1363,10 +1635,7 @@ footer {
         </a>
       </div>
 
-      <!-- SOCIAL & CALL BUTTONS -->
       <div class="social-buttons">
-
-        <!-- REPLACE with your Facebook page URL. -->
         <a
           class="social-button"
           href="https://www.facebook.com/antarikflk/"
@@ -1383,16 +1652,10 @@ footer {
           Facebook
         </a>
 
-        <!--
-          REPLACE +910000000000 with your actual phone number.
-          Use +91 followed by your 10-digit Indian phone number.
-          This placeholder number will not reach your shop.
-          Update the aria-label after adding your real number.
-        -->
         <a
           class="social-button call"
-          href="tel:+91 3329 71392"
-          aria-label="Call Antarik Sweets — sample number"
+          href="tel:+91332971392"
+          aria-label="Call Antarik Sweets"
         >
           <svg
             viewBox="0 0 24 24"
@@ -1407,7 +1670,6 @@ footer {
           </svg>
           Call us
         </a>
-
       </div>
     </div>
   </section>
@@ -1428,6 +1690,311 @@ footer {
     </div>
   </div>
 </footer>
+
+<script>
+(() => {
+  const carousel = document.querySelector(".sweet-carousel");
+  if (!carousel) return;
+
+  const viewport = carousel.querySelector(".carousel-viewport");
+  const track = carousel.querySelector(".sweet-gallery");
+  const originals = [...track.children];
+  const dots = [...carousel.querySelectorAll(".carousel-dot")];
+
+  const previous = document.getElementById("sweet-prev");
+  const next = document.getElementById("sweet-next");
+  const toggle = document.getElementById("sweet-toggle");
+  const status = document.getElementById("sweet-status");
+
+  const count = originals.length;
+  if (count < 2) return;
+
+  /* Automatic slide interval: 3000 milliseconds = 3 seconds. */
+  const INTERVAL = 3000;
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  );
+
+  /*
+   * Copies on both sides create a continuous infinite loop.
+   * Copies are hidden from assistive technology.
+   */
+  const cloneCard = card => {
+    const clone = card.cloneNode(true);
+
+    clone.classList.remove("is-active");
+    clone.setAttribute("aria-hidden", "true");
+    clone.removeAttribute("aria-label");
+    clone.removeAttribute("aria-roledescription");
+    clone.removeAttribute("role");
+    clone.inert = true;
+
+    return clone;
+  };
+
+  const before = document.createDocumentFragment();
+  const after = document.createDocumentFragment();
+
+  originals.forEach(card => {
+    before.appendChild(cloneCard(card));
+    after.appendChild(cloneCard(card));
+  });
+
+  track.prepend(before);
+  track.append(after);
+
+  const cards = [...track.children];
+
+  let position = count;
+  let step = 0;
+  let centerOffset = 0;
+  let moving = false;
+  let paused = false;
+  let pointer = null;
+  let timer;
+  let transitionTimer;
+
+  const currentIndex = () =>
+    ((position - count) % count + count) % count;
+
+  const render = (instant = false) => {
+    const skipAnimation = instant || reducedMotion.matches;
+
+    track.classList.toggle("is-resetting", skipAnimation);
+
+    cards.forEach((card, index) => {
+      card.classList.toggle(
+        "is-active",
+        index % count === currentIndex()
+      );
+    });
+
+    dots.forEach((dot, index) => {
+      dot.setAttribute(
+        "aria-current",
+        index === currentIndex() ? "true" : "false"
+      );
+    });
+
+    track.style.transform =
+      `translate3d(${centerOffset - position * step}px, 0, 0)`;
+
+    if (skipAnimation) {
+      /*
+       * Commit the invisible reset before restoring
+       * transitions for the next automatic slide.
+       */
+      void track.offsetWidth;
+      track.classList.remove("is-resetting");
+    }
+  };
+
+  const finishTransition = () => {
+    clearTimeout(transitionTimer);
+
+    if (position >= count * 2) {
+      position -= count;
+      render(true);
+    } else if (position < count) {
+      position += count;
+      render(true);
+    }
+
+    moving = false;
+  };
+
+  const goTo = (target, manual = false) => {
+    if (moving || !step || target === position) return;
+
+    position = target;
+    moving = !reducedMotion.matches;
+
+    render();
+
+    if (manual && status) {
+      const name = originals[currentIndex()]
+        .querySelector(".photo-name")
+        .textContent.trim();
+
+      status.textContent =
+        `${name}, sweet ${currentIndex() + 1} of ${count}`;
+    }
+
+    if (moving) {
+      transitionTimer = setTimeout(finishTransition, 1050);
+    } else {
+      finishTransition();
+    }
+  };
+
+  const stopAutoplay = () => {
+    clearInterval(timer);
+  };
+
+  const startAutoplay = () => {
+    stopAutoplay();
+
+    /*
+     * Autoplay continues during hover and after clicking.
+     * It pauses only through Pause, during a swipe,
+     * or while the browser tab is hidden.
+     */
+    if (paused || pointer || document.hidden) return;
+
+    timer = setInterval(() => {
+      goTo(position + 1);
+    }, INTERVAL);
+  };
+
+  const measure = () => {
+    clearTimeout(transitionTimer);
+
+    position = count + currentIndex();
+    moving = false;
+
+    const gap =
+      parseFloat(getComputedStyle(track).columnGap) || 0;
+
+    /*
+     * Computed layout width ignores visual scaling,
+     * keeping the active card exactly centered.
+     */
+    const width =
+      parseFloat(getComputedStyle(originals[0]).width);
+
+    step = width + gap;
+    centerOffset = (viewport.clientWidth - width) / 2;
+
+    render(true);
+  };
+
+  const manualMove = direction => {
+    goTo(position + direction, true);
+    startAutoplay();
+  };
+
+  track.addEventListener("transitionend", event => {
+    if (
+      event.target === track &&
+      event.propertyName === "transform"
+    ) {
+      finishTransition();
+    }
+  });
+
+  previous.addEventListener("click", () => manualMove(-1));
+  next.addEventListener("click", () => manualMove(1));
+
+  toggle.addEventListener("click", () => {
+    paused = !paused;
+
+    toggle.textContent = paused ? "Play" : "Pause";
+    toggle.setAttribute(
+      "aria-label",
+      paused
+        ? "Start automatic sliding"
+        : "Pause automatic sliding"
+    );
+
+    startAutoplay();
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      let distance = index - currentIndex();
+
+      if (distance > count / 2) distance -= count;
+      if (distance < -count / 2) distance += count;
+
+      goTo(position + distance, true);
+      startAutoplay();
+    });
+  });
+
+  viewport.addEventListener("keydown", event => {
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      manualMove(1);
+    } else if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      manualMove(-1);
+    }
+  });
+
+  /* Finger swipe on mobile and mouse drag on desktop. */
+  viewport.addEventListener("pointerdown", event => {
+    if (!event.isPrimary || event.button !== 0 || moving) return;
+
+    pointer = {
+      id: event.pointerId,
+      x: event.clientX,
+      y: event.clientY
+    };
+
+    viewport.setPointerCapture(event.pointerId);
+    stopAutoplay();
+  });
+
+  const finishPointer = event => {
+    if (!pointer || pointer.id !== event.pointerId) return;
+
+    const dx = event.clientX - pointer.x;
+    const dy = event.clientY - pointer.y;
+    const cancelled = event.type === "pointercancel";
+
+    pointer = null;
+
+    if (viewport.hasPointerCapture(event.pointerId)) {
+      viewport.releasePointerCapture(event.pointerId);
+    }
+
+    if (
+      !cancelled &&
+      Math.abs(dx) > 40 &&
+      Math.abs(dx) > Math.abs(dy)
+    ) {
+      goTo(position + (dx < 0 ? 1 : -1), true);
+    }
+
+    startAutoplay();
+  };
+
+  viewport.addEventListener("pointerup", finishPointer);
+  viewport.addEventListener("pointercancel", finishPointer);
+
+  viewport.addEventListener("lostpointercapture", () => {
+    if (!pointer) return;
+
+    pointer = null;
+    startAutoplay();
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) pointer = null;
+    startAutoplay();
+  });
+
+  /*
+   * With reduced motion enabled, cards still change on time,
+   * but without the sliding and scaling animation.
+   */
+  reducedMotion.addEventListener("change", () => {
+    finishTransition();
+    render(true);
+  });
+
+  if ("ResizeObserver" in window) {
+    const observer = new ResizeObserver(measure);
+    observer.observe(viewport);
+  } else {
+    window.addEventListener("resize", measure);
+  }
+
+  measure();
+  startAutoplay();
+})();
+</script>
 
 </body>
 </html>
